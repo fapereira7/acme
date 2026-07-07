@@ -16,7 +16,6 @@ import org.springframework.web.client.RestClient;
 public class PedidoController {
     private final RestClient restClient;
 
-    // Forzamos el puerto 8081 que es donde Docker Compose expone a WireMock
     public PedidoController() {
         this.restClient = RestClient.create("http://localhost:8081");
     }
@@ -25,18 +24,15 @@ public class PedidoController {
     public RestResponseWrapper procesarPedido(@RequestBody RestPedidoWrapper requestWrapper) {
         EnviarPedidoRequest pedido = requestWrapper.enviarPedido();
 
-        // 1. Tu método de transformación existente
         String soapRequestXml = transformarJsonToXml(pedido);
 
-        // 2. Envío forzado con URL absoluta completa hacia WireMock
         String soapResponseXml = restClient.post()
-                .uri("http://localhost:8081/api/v1/mock-soap-endpoint") // <-- URL absoluta completa aquí
+                .uri("http://localhost:8081/api/v1/mock-soap-endpoint")
                 .contentType(MediaType.TEXT_XML)
                 .body(soapRequestXml)
                 .retrieve()
                 .body(String.class);
 
-        // 3. Tu método de procesamiento de respuesta existente
         EnviarPedidoResponse response = transformarXmlToJson(soapResponseXml);
         return new RestResponseWrapper(response);
     }

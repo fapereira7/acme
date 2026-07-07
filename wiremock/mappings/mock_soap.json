@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/v1/mock-soap-endpoint"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/xml"
+    },
+    "body": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:env=\"http://WSDLs/EnvioPedidos/EnvioPedidosAcme\"><soapenv:Header/><soapenv:Body><env:EnvioPedidoAcmeResponse><EnvioPedidoResponse><Codigo>80375472</Codigo><Mensaje>Entregado exitosamente al cliente</Mensaje></EnvioPedidoResponse></env:EnvioPedidoAcmeResponse></soapenv:Body></soapenv:Envelope>"
+  }
+}
